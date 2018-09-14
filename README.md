@@ -32,3 +32,4 @@ This is a Citowise Token smart contract. It relays heavily on [OpenZeppelin](htt
 * OpenZeppelin library - https://github.com/OpenZeppelin/openzeppelin-solidity
 * Full list of Truffle solidity assertions - https://github.com/trufflesuite/truffle-core/blob/master/lib/testing/Assert.sol
 * How to call methods - https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-methods
+* Contract interaction API - https://github.com/ethereum/wiki/wiki/JavaScript-API#contract-methods

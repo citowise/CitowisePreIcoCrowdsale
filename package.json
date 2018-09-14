@@ -1,5 +1,5 @@
 {
-  "name": "CitowiseIco",
+  "name": "CitowiseIcoCrowdsale",
   "version": "1.0.0",
   "description": "",
   "main": "truffle-config.js",
@@ -15,7 +15,8 @@
   "dependencies": {
     "chai": "^4.1.2",
     "chai-bignumber": "^2.0.2",
-    "openzeppelin-solidity": "git://github.com:OpenZeppelin/openzeppelin-solidity.git#7618b91",
+    "CitowiseToken": "git://github.com/citowise/CitowiseToken.git#dd6f8c0",
+    "openzeppelin-solidity": "git://github.com:OpenZeppelin/openzeppelin-solidity.git#b4f87bb8f",
     "truffle": "4.1.13"
   }
 }
