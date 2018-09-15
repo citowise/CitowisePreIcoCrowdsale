@@ -5,23 +5,26 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20Mintable.sol";
 import "openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
 import "./TimedCrowdsale.sol";
+import "./BonusableCrowdsale.sol";
 import "openzeppelin-solidity/contracts/crowdsale/validation/CappedCrowdsale.sol";
 
 
 contract CitowisePreIcoCrowdsale is Ownable,
                                     Crowdsale,
                                     TimedCrowdsale,
+                                    BonusableCrowdsale,
                                     CappedCrowdsale
 {
     using SafeMath for uint;
 
-    //  uint256 public beginTime; // = 1537023600; // 2018-09-15 12pm UTC+3;
-    //  uint256 public endTime; // = 1539615600; // 2018-10-15 12pm UTC+3;
-
-    uint256 public constant ETHER = 1000000000000000000; // hardcoded 10^18 to avoid futher miscalculations
-    uint256 public constant PREICO_HARDCAP_ETH = 19000;  // Pre ICO stage hardcap
+    uint256 private constant ETHER = 1000000000000000000; // hardcoded 10^18 to avoid futher miscalculations
+    uint256 private constant PREICO_HARDCAP_ETH = 19000;  // Pre ICO stage hardcap
 
     uint256 baseExchangeRate = 3888;
+    uint256 minimumParticipationAmount = ETHER/2; // half of an ETher
+
+    //  uint256 public beginTime; // = 1537023600; // 2018-09-15 12pm UTC+3;
+    //  uint256 public endTime; // = 1539615600; // 2018-10-15 12pm UTC+3;
 
     constructor(uint256 beginTime, uint256 endTime, address walletAddress, address tokenAddress) public
         Crowdsale(
@@ -61,22 +64,22 @@ contract CitowisePreIcoCrowdsale is Ownable,
         return tokensAmount.mul(hundered.add(currentBonus)).div(hundered);
     }
 
-    function _getCurrentTokenBonus(uint256 weiAmount)
-        internal view returns (uint256)
+    /**
+     * @dev Validation of an incoming purchase. Use require statements to revert state when conditions are not met. Use `super` in contracts that inherit from Crowdsale to extend their validations.
+     * Example from CappedCrowdsale.sol's _preValidatePurchase method:
+     *   super._preValidatePurchase(beneficiary, weiAmount);
+     *   require(weiRaised().add(weiAmount) <= cap);
+     * @param beneficiary Address performing the token purchase
+     * @param weiAmount Value in wei involved in the purchase
+     */
+    function _preValidatePurchase(
+      address beneficiary,
+      uint256 weiAmount
+    )
+      internal
     {
-        uint256 bonus = 0;
-        uint256 currentTime = block.timestamp;
-        uint256 oneDay_seconds = 86400;
-        uint256 threshold = 10;
-        uint256 oneWeek = 7;
-
-        if (openingTime().add(oneDay_seconds) > currentTime) {
-            return weiAmount >= threshold.mul(ETHER) ? 50 : 40;
-        } else if (openingTime().add(oneWeek.mul(oneDay_seconds)) > currentTime) {
-            return weiAmount >= threshold.mul(ETHER) ? 40 : 30;
-        } else {
-            return weiAmount >= threshold.mul(ETHER) ? 30 : 20;
-        }
+      super._preValidatePurchase(beneficiary, weiAmount);
+      require(msg.value >= minimumParticipationAmount);
     }
 
     /**

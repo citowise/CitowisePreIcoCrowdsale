@@ -1,6 +1,7 @@
 pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
 
 
@@ -8,7 +9,7 @@ import "openzeppelin-solidity/contracts/crowdsale/Crowdsale.sol";
  * @title TimedCrowdsale
  * @dev Crowdsale accepting contributions only within a time frame.
  */
-contract TimedCrowdsale is Crowdsale {
+contract TimedCrowdsale is Ownable, Crowdsale {
   using SafeMath for uint256;
 
   uint256 private _openingTime;
@@ -34,6 +35,12 @@ contract TimedCrowdsale is Crowdsale {
 
     _openingTime = openingTime;
     _closingTime = closingTime;
+  }
+
+  function closeCrowdsale() public onlyOwner returns(bool) {
+    // This is now alweys lower than current time.
+    _closingTime = block.timestamp-1;
+    return true;
   }
 
   /**
