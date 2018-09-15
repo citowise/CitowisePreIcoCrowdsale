@@ -12,6 +12,10 @@ This is a Citowise Token smart contract. It relays heavily on [OpenZeppelin](htt
 
     https://truffleframework.com/ganache
 
+* Install Truffle.js
+
+    npm install truffle-flattener -g
+
 * Then
 
     truffle compile
@@ -23,6 +27,10 @@ This is a Citowise Token smart contract. It relays heavily on [OpenZeppelin](htt
 * Finally run test
 
     truffle test
+
+* Finally run test
+
+    truffle-flattener contracts/CitowisePreIcoCrowdsale.sol > flattened_contracts/CitowisePreIcoCrowdsale.sol
 
 ## Tutorials and accompined materials
 
