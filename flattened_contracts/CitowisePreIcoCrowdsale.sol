@@ -769,9 +769,9 @@ contract BonusableCrowdsale is Ownable, TimedCrowdsale {
       uint256 currentTime = block.timestamp;
       uint256 threshold = 10;
 
-      if (openingTime().add(1 days) > currentTime) {
+      if (openingTime().add(7 days) > currentTime) {
           return weiAmount >= threshold.mul(1 ether) ? 50 : 40;
-      } else if (openingTime().add(7 days) > currentTime) {
+      } else if (openingTime().add(14 days) > currentTime) {
           return weiAmount >= threshold.mul(1 ether) ? 40 : 30;
       } else {
           return weiAmount >= threshold.mul(1 ether) ? 30 : 20;

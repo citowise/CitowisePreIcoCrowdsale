@@ -8,9 +8,9 @@ const BASE_RATE = 3888;
 const ETH_EXPECTED = 19000;
 const ETHER = 1000000000000000000;
 
-const FirstPeriod = 1.5*SECONDS_IN_A_DAY;
-const SecondPeriod = 2.5*SECONDS_IN_A_DAY;
-const ThirdPeriod = 14*SECONDS_IN_A_DAY;
+const FirstPeriod = 4*SECONDS_IN_A_DAY;
+const SecondPeriod = 10*SECONDS_IN_A_DAY;
+const ThirdPeriod = 21*SECONDS_IN_A_DAY;
 const AfterICO = 32*SECONDS_IN_A_DAY;
 
 function roundValue(value) {
