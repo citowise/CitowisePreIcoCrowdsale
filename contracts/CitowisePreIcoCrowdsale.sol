@@ -16,11 +16,10 @@ contract CitowisePreIcoCrowdsale is Ownable,
 {
     using SafeMath for uint;
 
-    uint256 private constant ETHER = 1000000000000000000; // hardcoded 10^18 to avoid futher miscalculations
     uint256 private constant PREICO_HARDCAP_ETH = 19000;  // Pre ICO stage hardcap
 
     uint256 baseExchangeRate = 3888;
-    uint256 minimumParticipationAmount = ETHER/2; // half of an ETher
+    uint256 minimumParticipationAmount = 500 finney; // half of an Ether
 
     //  uint256 public beginTime; // = 1537023600; // 2018-09-15 12pm UTC+3;
     //  uint256 public endTime; // = 1539615600; // 2018-10-15 12pm UTC+3;
@@ -34,7 +33,7 @@ contract CitowisePreIcoCrowdsale is Ownable,
             beginTime,
             endTime)
         CappedCrowdsale(
-            PREICO_HARDCAP_ETH.mul(ETHER))
+            PREICO_HARDCAP_ETH.mul(1 ether))
     {
 
     }

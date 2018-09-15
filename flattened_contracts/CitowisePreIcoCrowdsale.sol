@@ -754,8 +754,6 @@ contract BonusableCrowdsale is Ownable, TimedCrowdsale {
   // Currently active bonus
   uint256 private _currentBonus;
 
-  uint256 private constant ETHER = 1000000000000000000; // hardcoded 10^18 to avoid futher miscalculations
-
   /**
    * @dev Calculates bonus based on participation amount.
    * @param weiAmount Participation amount in Wei
@@ -769,16 +767,14 @@ contract BonusableCrowdsale is Ownable, TimedCrowdsale {
 
       uint256 bonus = 0;
       uint256 currentTime = block.timestamp;
-      uint256 oneDay_seconds = 86400;
       uint256 threshold = 10;
-      uint256 oneWeek = 7;
 
-      if (openingTime().add(oneDay_seconds) > currentTime) {
-          return weiAmount >= threshold.mul(ETHER) ? 50 : 40;
-      } else if (openingTime().add(oneWeek.mul(oneDay_seconds)) > currentTime) {
-          return weiAmount >= threshold.mul(ETHER) ? 40 : 30;
+      if (openingTime().add(1 days) > currentTime) {
+          return weiAmount >= threshold.mul(1 ether) ? 50 : 40;
+      } else if (openingTime().add(7 days) > currentTime) {
+          return weiAmount >= threshold.mul(1 ether) ? 40 : 30;
       } else {
-          return weiAmount >= threshold.mul(ETHER) ? 30 : 20;
+          return weiAmount >= threshold.mul(1 ether) ? 30 : 20;
       }
   }
 
@@ -868,11 +864,10 @@ contract CitowisePreIcoCrowdsale is Ownable,
 {
     using SafeMath for uint;
 
-    uint256 private constant ETHER = 1000000000000000000; // hardcoded 10^18 to avoid futher miscalculations
     uint256 private constant PREICO_HARDCAP_ETH = 19000;  // Pre ICO stage hardcap
 
     uint256 baseExchangeRate = 3888;
-    uint256 minimumParticipationAmount = ETHER/2; // half of an ETher
+    uint256 minimumParticipationAmount = 500 finney; // half of an Ether
 
     //  uint256 public beginTime; // = 1537023600; // 2018-09-15 12pm UTC+3;
     //  uint256 public endTime; // = 1539615600; // 2018-10-15 12pm UTC+3;
@@ -886,7 +881,7 @@ contract CitowisePreIcoCrowdsale is Ownable,
             beginTime,
             endTime)
         CappedCrowdsale(
-            PREICO_HARDCAP_ETH.mul(ETHER))
+            PREICO_HARDCAP_ETH.mul(1 ether))
     {
 
     }
